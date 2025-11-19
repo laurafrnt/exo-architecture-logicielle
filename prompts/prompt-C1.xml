@@ -1,62 +1,55 @@
-<prompt>
-  <role>
-    Tu es un Architecte Logiciel Senior expert en modélisation C4.
-    Tu utilises le langage **Mermaid.js** (syntaxe C4Context et C4Container).
-  </role>
+<prompt_C1_Contexte>
+  <role>
+    Tu es un Architecte Logiciel Expert. Tu maîtrises la génération de fichiers et le langage **Mermaid.js** (syntaxe C4Context).
+  </role>
 
-  <task>
-    Analyse les documents fournis dans <input_data> et génère deux diagrammes distincts :
-    1. Un diagramme de **Contexte (C1)**.
-    2. Un diagramme de **Conteneurs (C2)**.
-  </task>
+  <task>
+    Génère et fournis un **fichier Markdown téléchargeable** (extension .md) contenant le Diagramme de Contexte (C1) pour le projet "(RE)Sources Relationnelles".
+  </task>
 
-  <guidelines>
-    <general>
-      - Utilise la syntaxe Mermaid C4 (`C4Context` pour le C1, `C4Container` pour le C2).
-      - N'invente rien : base-toi uniquement sur les textes fournis.
-    </general>
-    <diagram_C1>
-      - **Système** : "(RE)Sources Relationnelles".
-      - **Personnes** : Citoyen (connecté/non), Modérateur, Admin (selon 03-Contexte).
-      - **Systèmes Externes** : Auth, API Stats (selon 03-Contexte).
-    </diagram_C1>
-    <diagram_C2>
-      - **Zoom** : Rentre dans le système "(RE)Sources Relationnelles".
-      - **Conteneurs** :
-        - Une **App Mobile** et un **Web Front-Office** (car "plateforme web et mobile" dans 01-Introduction).
-        - Un **Back-Office** Web (pour les admins/modérateurs selon 01-Introduction).
-        - Une **API / Backend** (Architecture MVC selon 02-Contraintes).
-        - Une **Base de données** (PostgreSQL/MySQL selon 02-Contraintes).
-      - **Relations** : Relie les applications à l'API, et l'API à la Base de données.
-    </diagram_C2>
-  </guidelines>
+  <guidelines>
+    1. **Syntaxe** : Utilise `C4Context`, `Person()`, `System()`, `System_Ext()`, `Rel()`.
+    2. **Analyse** :
+       - Le **System** est "(RE)Sources Relationnelles".
+       - Les **Person** sont les acteurs listés dans le fichier 03-Contexte (Citoyens, Modérateurs, Admins).
+       - Les **System_Ext** sont les interfaces externes listées dans le fichier 03-Contexte (Auth, Stats).
+    3. **Relations** : Déduis les flèches (ex: "Le citoyen utilise le système", "Le système envoie des stats").
+  </guidelines>
 
-  <input_data>
-    <document name="01-Introduction.md">
-      # 01 - Introduction
-      Le système est une **plateforme web et mobile**.
-      Interfaces : **Front-office** (citoyens) et **Back-office** (administrateurs).
-      Objectifs : Fournir un accès simple aux ressources, permettre aux citoyens de créer et commenter.
-    </document>
+  <input_data>
+    <document name="01-Introduction.md">
+      # Le Système
+      Le système est une plateforme web et mobile "(RE)Sources Relationnelles" favorisant la cohésion sociale.
+    </document>
+    <document name="03-Contexte.md">
+      # Acteurs principaux (Person)
+      - **Citoyen non connecté** : consultation libre.
+      - **Citoyen connecté** : création, partage.
+      - **Modérateur** : contrôle et validation.
+      - **Administrateur** : gestion globale.
+      # Interfaces externes (System_Ext)
+      - Connexion à des bases externes (**API statistiques**).
+      - Interaction avec systèmes d’authentification (**Identité numérique**).
+    </document>
+  </input_data>
 
-    <document name="02-Contraintes.md">
-      # 02 - Contraintes
-      - Architecture : **MVC (Modèle-Vue-Contrôleur)**.
-      - Technologies : HTML5, CSS3, JS.
-      - Base de données : **Relationnelle (PostgreSQL / MySQL)**.
-      - Sécurité : RGPD, anonymisation.
-    </document>
-
-    <document name="03-Contexte.md">
-      # 03 - Contexte
-      - Acteurs : **Citoyen non connecté**, **Citoyen connecté**, **Modérateur**, **Administrateur**.
-      - Interfaces externes : Connexion à des bases externes (**API statistiques**), Interaction avec systèmes d’authentification (**Identité numérique**).
-    </document>
-  </input_data>
-
-  <output_format>
-    Fournis deux blocs de code Mermaid séparés.
-    1. Le code pour le C1.
-    2. Le code pour le C2.
-  </output_format>
-</prompt>
+  <output_format>
+      N'affiche PAS le contenu Markdown directement dans la fenêtre de chat.
+      
+      Agis comme suit :
+      1. Utilise ton outil d'exécution de code Markdown pour créer un fichier nommé "architecture_context.md".
+      2. Écris le contenu complet à l'intérieur de ce fichier en respectant la structure suivante :
+      
+        # Mon Architecture
+        
+        Voici le diagramme de contexte du projet :
+        
+        ```mermaid
+        C4Context
+          title Diagramme de Contexte Système - (RE)Sources Relationnelles
+          %% ... ton code généré ici ...
+        ```
+        
+      3. IMPORTANT : Assure-toi impérativement que le bloc Mermaid est bien fermé par "```" sur une nouvelle ligne à la fin du fichier.
+    </output_format>
+</prompt_C1_Contexte>
