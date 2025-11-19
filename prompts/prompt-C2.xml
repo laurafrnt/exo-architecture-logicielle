@@ -1,0 +1,42 @@
+<prompt_C2_Container>
+  <role>
+    Tu es un Architecte Logiciel Expert. Tu utilises le langage **Mermaid.js** (syntaxe C4Container).
+  </role>
+
+  <task>
+    Génère un **Diagramme de Conteneurs (C2)** pour le système "(RE)Sources Relationnelles".
+    Tu dois montrer l'architecture interne technique.
+  </task>
+
+  <guidelines>
+    1. **Syntaxe** : Utilise `C4Container`, `Container()`, `ContainerDb()`, `System_Ext()`, `Rel()`.
+    2. **Conteneurs à créer** (basés sur l'input) :
+       - Une **App Mobile** (Android/iOS).
+       - Une **Application Web Front-Office** (Citoyens).
+       - Une **Application Web Back-Office** (Admins/Modérateurs).
+       - Une **API Backend** (Logique MVC).
+       - Une **Base de Données** (SQL).
+    3. **Technologies** : Utilise les technos citées dans "02-Contraintes" (HTML5/JS, MVC, PostgreSQL/MySQL).
+    4. **Flux** : Les applis (Mobile/Web) appellent l'API. L'API lit/écrit dans la DB.
+  </guidelines>
+
+  <input_data>
+    <document name="01-Introduction.md">
+      Le système est une **plateforme web et mobile**.
+      Deux interfaces : **Front-office** (pour les citoyens) et **Back-office** (pour les administrateurs).
+    </document>
+    <document name="02-Contraintes.md">
+      - Architecture : **MVC (Modèle-Vue-Contrôleur)**.
+      - Technos Web : HTML5, CSS3, JS.
+      - Base de données : **Relationnelle (ex : PostgreSQL / MySQL)**.
+      - Sécurité : Données sensibles et RGPD.
+    </document>
+    <document name="03-Contexte.md">
+      (Pour info) Interaction avec systèmes d’authentification externes.
+    </document>
+  </input_data>
+
+  <output>
+    Affiche uniquement le code Mermaid.
+  </output>
+</prompt_C2_Container>

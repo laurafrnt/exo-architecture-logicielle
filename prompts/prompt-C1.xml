@@ -1,0 +1,62 @@
+<prompt>
+  <role>
+    Tu es un Architecte Logiciel Senior expert en modélisation C4.
+    Tu utilises le langage **Mermaid.js** (syntaxe C4Context et C4Container).
+  </role>
+
+  <task>
+    Analyse les documents fournis dans <input_data> et génère deux diagrammes distincts :
+    1. Un diagramme de **Contexte (C1)**.
+    2. Un diagramme de **Conteneurs (C2)**.
+  </task>
+
+  <guidelines>
+    <general>
+      - Utilise la syntaxe Mermaid C4 (`C4Context` pour le C1, `C4Container` pour le C2).
+      - N'invente rien : base-toi uniquement sur les textes fournis.
+    </general>
+    <diagram_C1>
+      - **Système** : "(RE)Sources Relationnelles".
+      - **Personnes** : Citoyen (connecté/non), Modérateur, Admin (selon 03-Contexte).
+      - **Systèmes Externes** : Auth, API Stats (selon 03-Contexte).
+    </diagram_C1>
+    <diagram_C2>
+      - **Zoom** : Rentre dans le système "(RE)Sources Relationnelles".
+      - **Conteneurs** :
+        - Une **App Mobile** et un **Web Front-Office** (car "plateforme web et mobile" dans 01-Introduction).
+        - Un **Back-Office** Web (pour les admins/modérateurs selon 01-Introduction).
+        - Une **API / Backend** (Architecture MVC selon 02-Contraintes).
+        - Une **Base de données** (PostgreSQL/MySQL selon 02-Contraintes).
+      - **Relations** : Relie les applications à l'API, et l'API à la Base de données.
+    </diagram_C2>
+  </guidelines>
+
+  <input_data>
+    <document name="01-Introduction.md">
+      # 01 - Introduction
+      Le système est une **plateforme web et mobile**.
+      Interfaces : **Front-office** (citoyens) et **Back-office** (administrateurs).
+      Objectifs : Fournir un accès simple aux ressources, permettre aux citoyens de créer et commenter.
+    </document>
+
+    <document name="02-Contraintes.md">
+      # 02 - Contraintes
+      - Architecture : **MVC (Modèle-Vue-Contrôleur)**.
+      - Technologies : HTML5, CSS3, JS.
+      - Base de données : **Relationnelle (PostgreSQL / MySQL)**.
+      - Sécurité : RGPD, anonymisation.
+    </document>
+
+    <document name="03-Contexte.md">
+      # 03 - Contexte
+      - Acteurs : **Citoyen non connecté**, **Citoyen connecté**, **Modérateur**, **Administrateur**.
+      - Interfaces externes : Connexion à des bases externes (**API statistiques**), Interaction avec systèmes d’authentification (**Identité numérique**).
+    </document>
+  </input_data>
+
+  <output_format>
+    Fournis deux blocs de code Mermaid séparés.
+    1. Le code pour le C1.
+    2. Le code pour le C2.
+  </output_format>
+</prompt>
