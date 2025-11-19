@@ -1,56 +1,60 @@
-<prompt_C1_Contexte>
+<prompt_Architecture_Diagram>
   <role>
-    Tu es un Architecte Logiciel Expert. Tu maîtrises la génération de fichiers et le langage **Mermaid.js** (syntaxe C4Context).
+    Tu es un Architecte Logiciel Expert. Tu maîtrises la création de diagrammes techniques esthétiques avec **Mermaid.js** (syntaxe standard graph TD).
   </role>
 
   <task>
-    Génère et fournis un **fichier Markdown téléchargeable** (extension .md) contenant le Diagramme de Contexte (C1) pour le projet "(RE)Sources Relationnelles".
+    Génère un diagramme d'architecture technique pour le projet "(RE)Sources Relationnelles" qui respecte scrupuleusement le format visuel, la structure et les styles demandés.
   </task>
 
   <guidelines>
-    1. **Syntaxe** : Utilise `C4Context`, `Person()`, `System()`, `System_Ext()`, `Rel()`.
-    2. **Analyse** :
-       - Le **System** est "(RE)Sources Relationnelles".
-       - Les **Person** sont les acteurs listés dans le fichier 03-Contexte (Citoyens, Modérateurs, Admins).
-       - Les **System_Ext** sont les interfaces externes listées dans le fichier 03-Contexte (Auth, Stats).
-    3. **Relations** : Déduis les flèches (ex: "Le citoyen utilise le système", "Le système envoie des stats").
+    1. **Syntaxe** : Utilise `graph TD`.
+    2. **Structure** : Organise les éléments en 3 `subgraph` (Attention aux espaces dans les noms) :
+       - `Utilisateurs` (direction TB).
+       - `Systeme Principal` (pour "(RE)Sources Relationnelles").
+       - `Systemes Externes` (pour les API et Auth).
+    3. **Contenu des Noeuds** :
+       - Format : `id["Titre<br/><small>Description courte</small>"]`.
+       - Utilise des IDs courts et explicites (ex: C_NC, C_C, MOD, RSR, AUTH).
+    4. **Relations & Protocoles** :
+       - Flèches standards `-->` pour les flux de données (Action + Protocole HTTPS/JSON/REST).
+       - Flèches en pointillés `-.->` UNIQUEMENT pour l'authentification (Protocole OIDC / OAuth2).
+       - Format étiquette : `|"Action<br/><small>Protocole</small>"|`.
+    5. **Design & Styles** : Copie et colle exactement ces classes à la fin :
+       - `classDef user fill:#E0F2FE,stroke:#0284C7,stroke-width:1px;`
+       - `classDef staff fill:#FEF9C3,stroke:#F59E0B,stroke-width:1px;`
+       - `classDef core fill:#DCFCE7,stroke:#16A34A,stroke-width:1px;`
+       - `classDef external fill:#F1F5F9,stroke:#475569,stroke-width:1px;`
   </guidelines>
 
   <input_data>
-    <document name="01-Introduction.md">
-      # Le Système
-      Le système est une plateforme web et mobile "(RE)Sources Relationnelles" favorisant la cohésion sociale.
+    <document name="Acteurs">
+      - **Citoyen non connecté** (C_NC) : Consultation libre.
+      - **Citoyen connecté** (C_C) : Création, partage.
+      - **Modérateur** (MOD) : Contrôle et validation.
+      - **Administrateur** (ADMIN) : Gestion du catalogue.
+      - **Super Administrateur** (S_ADMIN) : Gestion des admins.
     </document>
-    <document name="03-Contexte.md">
-      # Acteurs principaux (Person)
-      - **Citoyen non connecté** : consultation libre.
-      - **Citoyen connecté** : création, partage.
-      - **Modérateur** : contrôle et validation.
-      - **Administrateur** : gestion du catalogue.
-      - **Super-administrateur** : gestion des comptes admin/modérateur. 
-      # Interfaces externes (System_Ext)
-      - Connexion à des bases externes (**API statistiques**).
-      - Interaction avec systèmes d’authentification (**Identité numérique**).
+    <document name="Systeme">
+      - **(RE)Sources Relationnelles** (RSR) : Plateforme Web & Mobile.
+    </document>
+    <document name="Externe">
+      - **API statistiques** (API_STAT) : Bases externes. Reçoit des données (REST JSON).
+      - **Identité numérique** (AUTH) : Système d'authentification.
     </document>
   </input_data>
 
   <output_format>
-      N'affiche PAS le contenu Markdown directement dans la fenêtre de chat.
-      
-      Agis comme suit :
-      1. Utilise ton outil d'exécution de code Markdown pour créer un fichier nommé "architecture_context.md".
-      2. Écris le contenu complet à l'intérieur de ce fichier en respectant la structure suivante :
-      
-        # Mon Architecture
-        
-        Voici le diagramme de contexte du projet :
-        
-        ```mermaid
-        C4Context
-          title Diagramme de Contexte Système - (RE)Sources Relationnelles
-          %% ... ton code généré ici ...
-        ```
-        
-      3. IMPORTANT : Assure-toi impérativement que le bloc Mermaid est bien fermé par "```" sur une nouvelle ligne à la fin du fichier.
-    </output_format>
-</prompt_C1_Contexte>
+    Ne mets aucun texte avant ou après le bloc de code. Pas de politesse. En format Markdown exploitable en commençant ta réponse par ``` et en la finissant par ```.
+    Structure attendue :
+```
+    # Mon Architecture
+
+    Voici le diagramme de contexte du projet :
+
+    ```mermaid
+    graph TD
+      %% ... code mermaid ...
+```
+  </output_format>
+</prompt_Architecture_Diagram> 
