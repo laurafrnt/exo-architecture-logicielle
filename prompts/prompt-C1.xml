@@ -26,7 +26,8 @@
       - **Citoyen non connecté** : consultation libre.
       - **Citoyen connecté** : création, partage.
       - **Modérateur** : contrôle et validation.
-      - **Administrateur** : gestion globale.
+      - **Administrateur** : gestion du catalogue.
+      - **Super-administrateur** : gestion des comptes admin/modérateur. 
       # Interfaces externes (System_Ext)
       - Connexion à des bases externes (**API statistiques**).
       - Interaction avec systèmes d’authentification (**Identité numérique**).

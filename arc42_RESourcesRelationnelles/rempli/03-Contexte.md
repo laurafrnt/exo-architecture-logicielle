@@ -8,7 +8,8 @@ Le projet a une portée **citoyenne et sociétale**, centrée sur les relations 
 - **Citoyen non connecté** : consultation libre de certaines ressources.
 - **Citoyen connecté** : création, partage, et suivi personnalisé.
 - **Modérateur** : contrôle et validation du contenu.
-- **Administrateur / Super-administrateur** : gestion du catalogue et des utilisateurs.
+- **Administrateur** : gestion du catalogue.
+- **Super-administrateur** : gestion des comptes admin/modérateur. 
 
 ## Motivation et problème à résoudre
 De nombreuses études soulignent que la qualité des relations humaines influe directement sur le bien-être.  
