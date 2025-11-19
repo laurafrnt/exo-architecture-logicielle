@@ -13,33 +13,32 @@ graph TD
         S_ADMIN["Super Administrateur<br/><small>Gestion des admins</small>"]
     end
 
-    subgraph SP [Systeme Principal]
+    subgraph "Systeme Principal"
         RSR["(RE)Sources Relationnelles<br/><small>Plateforme Web & Mobile</small>"]
     end
 
-    subgraph SE [Systemes Externes]
-        AUTH["Identité numérique<br/><small>Système d'authentification</small>"]
+    subgraph "Systemes Externes"
         API_STAT["API statistiques<br/><small>Bases externes</small>"]
+        AUTH["Identité numérique<br/><small>Système d'authentification</small>"]
     end
 
-    %% Relations Utilisateurs vers Système
-    C_NC -->|"Consultation<br/><small>HTTPS</small>"| RSR
-    C_C -->|"Création / Partage<br/><small>HTTPS</small>"| RSR
-    MOD -->|"Validation<br/><small>HTTPS</small>"| RSR
-    ADMIN -->|"Gestion Catalogue<br/><small>HTTPS</small>"| RSR
-    S_ADMIN -->|"Gestion Admins<br/><small>HTTPS</small>"| RSR
+    %% Flux Utilisateurs vers Système
+    C_NC -->|"Consulte<br/><small>HTTPS/JSON</small>"| RSR
+    C_C -->|"Crée / Partage<br/><small>HTTPS/JSON</small>"| RSR
+    MOD -->|"Contrôle<br/><small>HTTPS/JSON</small>"| RSR
+    ADMIN -->|"Gère catalogue<br/><small>HTTPS/JSON</small>"| RSR
+    S_ADMIN -->|"Gère admins<br/><small>HTTPS/JSON</small>"| RSR
 
-    %% Relations Système vers Externes
-    RSR -.->|"Validation Token<br/><small>OIDC / OAuth2</small>"| AUTH
-    RSR -->|"Envoi Données<br/><small>REST JSON</small>"| API_STAT
+    %% Flux Système vers Externes
+    RSR -->|"Envoi statistiques<br/><small>REST JSON</small>"| API_STAT
+    RSR -.->|"Authentification<br/><small>OIDC / OAuth2</small>"| AUTH
 
     %% Application des styles
     class C_NC,C_C user;
     class MOD,ADMIN,S_ADMIN staff;
     class RSR core;
-    class AUTH,API_STAT external;
+    class API_STAT,AUTH external;
 
-    %% Définitions des styles
     classDef user fill:#E0F2FE,stroke:#0284C7,stroke-width:1px;
     classDef staff fill:#FEF9C3,stroke:#F59E0B,stroke-width:1px;
     classDef core fill:#DCFCE7,stroke:#16A34A,stroke-width:1px;
