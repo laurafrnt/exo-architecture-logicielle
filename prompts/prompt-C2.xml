@@ -36,7 +36,18 @@
     </document>
   </input_data>
 
-  <output>
-    Affiche uniquement le code Mermaid.
-  </output>
+  <output_format>
+    il faut que le diagramme soit le plus lisible possible, organise chaque partie du diagramme pour que les flèches ne se chevauchent pas.
+    Ne mets aucun texte avant ou après le bloc de code. Pas de politesse. En format Markdown exploitable en commençant ta réponse par ``` et en la finissant par ```.
+    Structure attendue :
+```
+    # Mon Architecture
+
+    Voici le diagramme de contexte du projet :
+
+    ```mermaid
+    graph TD
+      %% ... code mermaid ...
+```
+  </output_format>
 </prompt_C2_Container>
