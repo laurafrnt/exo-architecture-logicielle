@@ -12,9 +12,8 @@ Ce document sert de point d'entrée pour la documentation d'architecture du proj
 
 3. **[Contexte et Portée](03-contexte.md)**
    * Contexte métier, acteurs et interfaces externes.
-   * 3.1 [Parties prenantes](03-01-partie-prenante.md)
-   * 3.2 [Cas d'utilisation](03-02-UseCase.md)
-   * *À faire :* intégrer les usescases et parties prenantes
+   * 3.1 [Parties prenantes](03-01-partie-prenantes.md)
+   * 3.2 [Cas d'utilisation](useCases/03-02-global-use-cases.md)
 
 
 4. **[Stratégie de la solution](04-strategie-solution.md)**
