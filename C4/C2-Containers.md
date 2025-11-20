@@ -3,33 +3,92 @@
 Voici le diagramme de contexte du projet :
 
 ```mermaid
-C4Container
-title (RE)Sources Relationnelles – Diagramme de Conteneurs (C2)
+%% C1 + C2 combiné
+%% Utilisation du style de C1 + ajout du C2 en syntaxe C4Container
 
-Person(user_citizen, "Citoyen", "Utilise la plateforme pour accéder aux ressources.")
-Person(user_admin, "Administrateur / Modérateur", "Gère et modère le contenu.")
+flowchart TD
 
-System_Boundary(sys, "(RE)Sources Relationnelles") {
+    %% --- Acteurs (inchangés) ---
+    subgraph Utilisateurs
+        direction TB
+        C_NC["Citoyen non connecté<br/><small>Consultation libre</small>"]
+        C_C["Citoyen connecté<br/><small>Création, partage</small>"]
+        MOD["Modérateur<br/><small>Contrôle et validation</small>"]
+        ADMIN["Administrateur<br/><small>Gestion du catalogue</small>"]
+        S_ADMIN["Super Administrateur<br/><small>Gestion des admins</small>"]
+    end
 
-  Container(mobile_app, "App Mobile", "Android / iOS", "Application mobile hybride en HTML5/JS permettant l’accès citoyen au front-office.")
-  Container(web_front, "Application Web Front-Office", "HTML5 / CSS3 / JS", "Interface web pour les citoyens.")
-  Container(web_back, "Application Web Back-Office", "HTML5 / CSS3 / JS", "Interface web d’administration et de modération.")
-  
-  Container(api_backend, "API Backend", "MVC / REST", "Expose les services métier, gère la logique applicative et la sécurité (RGPD).")
-  
-  ContainerDb(database, "Base de Données Relationnelle", "PostgreSQL / MySQL", "Stocke les ressources, utilisateurs, permissions, logs.")
-}
+    %% --- Système Principal + C2 ---
+    subgraph "Systeme Principal"
+        direction TB
 
-System_Ext(auth_ext, "Système d’Authentification Externe", "OAuth2 / SSO", "Permet l’authentification sécurisée.")
+        RSR["(RE)Sources Relationnelles<br/><small>Plateforme Web & Mobile</small>"]
 
-Rel(user_citizen, mobile_app, "Utilise", "HTTPS")
-Rel(user_citizen, web_front, "Accède à", "HTTPS")
-Rel(user_admin, web_back, "Administre via", "HTTPS")
+        subgraph C2["Détail interne (C2) - Conteneurs"]
+            direction TB
 
-Rel(mobile_app, api_backend, "Appels REST", "HTTPS")
-Rel(web_front, api_backend, "Appels REST", "HTTPS")
-Rel(web_back, api_backend, "Appels REST", "HTTPS")
+            AppMobile["
+                Container: App Mobile<br/>
+                <small>Android / iOS<br/>HTML5 / JS (Hybrid)</small>
+            "]
 
-Rel(api_backend, database, "Lecture / Écriture SQL", "JDBC / ORM")
+            WebFront["
+                Container: Application Web Front-Office<br/>
+                <small>HTML5, CSS3, JS</small>
+            "]
 
-Rel(api_backend, auth_ext, "Vérification identité", "OAuth2 / SSO")
+            WebBack["
+                Container: Application Web Back-Office<br/>
+                <small>HTML5, CSS3, JS</small>
+            "]
+
+            API["
+                Container: API Backend<br/>
+                <small>MVC, REST JSON<br/>Contrôleurs, Services, Modèle</small>
+            "]
+
+            DB["
+                ContainerDb: Base de Données SQL<br/>
+                <small>PostgreSQL / MySQL</small>
+            "]
+        end
+    end
+
+    %% --- Systèmes Externes (inchangés) ---
+    subgraph "Systemes Externes"
+        API_STAT["API statistiques<br/><small>Bases externes</small>"]
+        AUTH["Identité numérique<br/><small>OIDC / OAuth2</small>"]
+    end
+
+    %% --- Flux Utilisateurs (C1) ---
+    C_NC -->|"Consulte<br/><small>HTTPS/JSON</small>"| RSR
+    C_C -->|"Crée / Partage<br/><small>HTTPS/JSON</small>"| RSR
+    MOD -->|"Contrôle<br/><small>HTTPS/JSON</small>"| RSR
+    ADMIN -->|"Gère catalogue<br/><small>HTTPS/JSON</small>"| RSR
+    S_ADMIN -->|"Gère admins<br/><small>HTTPS/JSON</small>"| RSR
+
+    %% --- Flux internes (C2) ---
+    RSR --> AppMobile
+    RSR --> WebFront
+    RSR --> WebBack
+
+    AppMobile -->|"API REST"| API
+    WebFront -->|"API REST"| API
+    WebBack -->|"API REST"| API
+
+    API -->|"Read/Write SQL"| DB
+
+    %% --- Flux externes (C1) ---
+    RSR -->|"Envoi statistiques<br/><small>REST JSON</small>"| API_STAT
+    RSR -.->|"Authentification<br/><small>OIDC / OAuth2</small>"| AUTH
+
+    %% Styles
+    class C_NC,C_C user;
+    class MOD,ADMIN,S_ADMIN staff;
+    class RSR core;
+    class API_STAT,AUTH external;
+
+    classDef user fill:#E0F2FE,stroke:#0284C7,stroke-width:1px;
+    classDef staff fill:#FEF9C3,stroke:#F59E0B,stroke-width:1px;
+    classDef core fill:#DCFCE7,stroke:#16A34A,stroke-width:1px;
+    classDef external fill:#F1F5F9,stroke:#475569,stroke-width:1px;

@@ -6,6 +6,7 @@
   <task>
     Génère un **Diagramme de Conteneurs (C2)** pour le système "(RE)Sources Relationnelles".
     Tu dois montrer l'architecture interne technique.
+    contente toi de completer le C1.
   </task>
 
   <guidelines>
@@ -34,10 +35,57 @@
     <document name="03-Contexte.md">
       (Pour info) Interaction avec systèmes d’authentification externes.
     </document>
+    <document name="C1">
+              # Mon Architecture
+
+        Voici le diagramme de contexte du projet :
+
+        ```mermaid
+        graph TD
+            subgraph Utilisateurs
+                direction TB
+                C_NC["Citoyen non connecté<br/><small>Consultation libre</small>"]
+                C_C["Citoyen connecté<br/><small>Création, partage</small>"]
+                MOD["Modérateur<br/><small>Contrôle et validation</small>"]
+                ADMIN["Administrateur<br/><small>Gestion du catalogue</small>"]
+                S_ADMIN["Super Administrateur<br/><small>Gestion des admins</small>"]
+            end
+
+            subgraph "Systeme Principal"
+                RSR["(RE)Sources Relationnelles<br/><small>Plateforme Web & Mobile</small>"]
+            end
+
+            subgraph "Systemes Externes"
+                API_STAT["API statistiques<br/><small>Bases externes</small>"]
+                AUTH["Identité numérique<br/><small>Système d'authentification</small>"]
+            end
+
+            %% Flux Utilisateurs vers Système
+            C_NC -->|"Consulte<br/><small>HTTPS/JSON</small>"| RSR
+            C_C -->|"Crée / Partage<br/><small>HTTPS/JSON</small>"| RSR
+            MOD -->|"Contrôle<br/><small>HTTPS/JSON</small>"| RSR
+            ADMIN -->|"Gère catalogue<br/><small>HTTPS/JSON</small>"| RSR
+            S_ADMIN -->|"Gère admins<br/><small>HTTPS/JSON</small>"| RSR
+
+            %% Flux Système vers Externes
+            RSR -->|"Envoi statistiques<br/><small>REST JSON</small>"| API_STAT
+            RSR -.->|"Authentification<br/><small>OIDC / OAuth2</small>"| AUTH
+
+            %% Application des styles
+            class C_NC,C_C user;
+            class MOD,ADMIN,S_ADMIN staff;
+            class RSR core;
+            class API_STAT,AUTH external;
+
+            classDef user fill:#E0F2FE,stroke:#0284C7,stroke-width:1px;
+            classDef staff fill:#FEF9C3,stroke:#F59E0B,stroke-width:1px;
+            classDef core fill:#DCFCE7,stroke:#16A34A,stroke-width:1px;
+            classDef external fill:#F1F5F9,stroke:#475569,stroke-width:1px;
+    </document>
   </input_data>
 
   <output_format>
-    il faut que le diagramme soit le plus lisible possible, organise chaque partie du diagramme pour que les flèches ne se chevauchent pas.
+    il faut que le diagramme soit le plus lisible possible, base ton rendue sur le 4eme document nommé C1. contente toi d'ajouter du contenue au document éxistant.
     Ne mets aucun texte avant ou après le bloc de code. Pas de politesse. En format Markdown exploitable en commençant ta réponse par ``` et en la finissant par ```.
     Structure attendue :
 ```
@@ -49,5 +97,6 @@
     graph TD
       %% ... code mermaid ...
 ```
+modifie le diagramme C1 pour y incorporer le C2.
   </output_format>
 </prompt_C2_Container>
