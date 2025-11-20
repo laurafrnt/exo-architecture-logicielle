@@ -17,7 +17,7 @@ Ce document sert de point d'entrée pour la documentation d'architecture du proj
 
 
 4. **[Stratégie de la solution](04-strategie-solution.md)**
-   * *À faire :* Justification du choix MVC, Architecture Web, choix technologiques majeurs.
+   * *À faire :* Justification du choix de l'architecture modulaire et choix technologiques majeurs.
 
 5. **[Vue en briques (Building Block View)](05-vue-blocs.md)**
    * *À faire :* Vue macro (Front/Back) et détails des composants internes.
