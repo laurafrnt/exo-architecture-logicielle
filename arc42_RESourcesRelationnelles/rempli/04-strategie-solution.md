@@ -22,5 +22,12 @@ Adopter une architecture modulaire pour obtenir un rangement plus approprié du 
 - Définir une API stable et documentée pour chaque module.   
 - Automatiser CI/CD au niveau des modules, avec pipelines et tests rapides.
 
+## Technologies utilisées
+- Laravel (Backend)  
+- Vue.js + nuxt (Frontend)  
+- Capacitor (Mobile)  
+- PostgreSQL (BDD)
+- Apache (Serveur web)
+
 ## Conclusion
 Une architecture modulaire apporte clarté, évolutivité et robustesse lorsqu'elle est accompagnée de contrats explicites, d'automatisation et d'une gouvernance légère. Elle facilite l'organisation du code et la montée en charge des équipes.
